@@ -105,6 +105,7 @@ nbbuild/
 dist/
 nbdist/
 .nb-gradle/
+nb-configuration.xml
 
 
 # End of https://www.gitignore.io/api/java,eclipse,netbeans,java-web

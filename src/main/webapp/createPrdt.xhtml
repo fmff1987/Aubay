@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"       
+      xmlns:f="http://java.sun.com/jsf/core"      
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Stock's Management - New</title>
+        <link rel='stylesheet' href='../resources/CSS/style.css'/>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    </h:head>
+    <h:body>
+        <p:growl showDetail="true" id="msg">
+            <p:autoUpdate />
+        </p:growl>
+        
+        <h:form>
+            <p:panelGrid columns="3" style="margin:0 auto;width: 75%;">
+                    <h3>Criação de Produto</h3>
+                    <h:panelGrid columns="2" cellpadding="5">
+                        <p:outputLabel for="discount" value="Disconto: " />
+                        <p:spinner id="discount" value="#{ProductBean.p.discount}"  suffix="%" min="0"/>
+
+                        <p:outputLabel for="iva" value="IVA:" />
+                        <p:spinner id="iva" value="#{productBean.p.iva}"  suffix="%" min="0"/>
+
+                        <p:outputLabel for="pvp" value="Preço Final:" />
+                        <p:spinner id="pvp" value="#{productBean.p.pvp}" stepFactor="0.25" suffix="€" min="0"/>
+
+
+                        <p:commandButton value="Gravar"  action="#{productBean.create(productBean.p)}" icon="ui-icon-disk" />
+                    </h:panelGrid>  
+            </p:panelGrid>  
+
+        </h:form>
+    </h:body>
+</html>

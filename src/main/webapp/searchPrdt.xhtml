@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"       
+      xmlns:f="http://java.sun.com/jsf/core"      
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Management Stock - Search</title>
+        <link rel='stylesheet' href='../resources/CSS/style.css'/>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    </h:head>
+    <h:body>
+        <p:growl showDetail="true" id="msg">
+            <p:autoUpdate />
+        </p:growl>
+        <h:form>
+            <p:commandButton id="dynaButton" value="Menu" type="button" icon="ui-icon-triangle-1-s"/>
+            <p:spacer height="30px"/>
+            <p:slideMenu overlay="true" trigger="dynaButton" my="left top" at="left bottom" style="width:180px;">
+                <p:submenu label="Produtos">
+                    <p:menuitem value="Criar" url="createPrdt.xhtml" icon="ui-icon-pencil"/>
+                    <p:menuitem value="Editar" url="editPrdt.xhtml"  icon="ui-icon-refresh"/>
+                    <p:menuitem value="Consultar" url="searchPrdt.xhtml"  icon="ui-icon-search"/>
+                </p:submenu>
+                <p:submenu label="Prateleiras">
+                    <p:menuitem value="Criar" url="createShelf.xhtml" icon="ui-icon-pencil"/>
+                    <p:menuitem value="Editar" url="editShelf.xhtml"  icon="ui-icon-refresh"/>
+                    <p:menuitem value="Consultar" url="searchShelf.xhtml"  icon="ui-icon-search"/>
+                </p:submenu>
+                <p:submenu label="Outros" icon="ui-icon-extlink ">
+                    <p:menuitem value="Home" url="index.xhtml" icon="ui-icon-home" />
+                </p:submenu>
+            </p:slideMenu>
+        </h:form>
+        <p:panelGrid columns="3" style="margin:0 auto;width: 75%;">
+            <h:form class='forms'>
+                <h3>Consulta de Produto</h3>
+                <h:panelGrid columns="2" cellpadding="5">
+                    <h:outputLabel for="id" value="ID: " />
+                    <p:selectCheckboxMenu id="" value=""/>
+
+                    <p:commandButton value="Consultar" action="#{productBean.search(productBean.p.id)}" icon="ui-icon-search"/>
+                </h:panelGrid>    
+            </h:form>
+        </p:panelGrid>    
+        
+        <p:dialog header="Produto" resizable="false" showEffect="fade" widgetVar="dlg">
+            <p:panelGrid id="output" columns="2" columnClasses="label, value">
+                <h:outputText value="ID:" />
+                <h:outputText value="#{productBean.p.id}" />
+
+                <h:outputText value="Preço:" />
+                <h:outputText value="#{productBean.p.pvp}" />
+
+                <h:outputText value="IVA:" />
+                <h:outputText value="#{productBean.p.iva}" />
+
+                <h:outputText value="Desconto:" />
+                <h:outputText value="#{productBean.p.discount}" />
+
+                <h:outputText value="Prateleira:" />
+                <h:outputText value="#{productBean.p.shelf}" />
+            </p:panelGrid>    
+        </p:dialog>    
+    </h:body>
+</html>

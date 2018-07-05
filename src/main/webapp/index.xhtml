@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"       
+      xmlns:f="http://java.sun.com/jsf/core"      
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Management Stock</title>
+        <link rel='stylesheet' href='../resouces/CSS/style.css'/>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    </h:head>
+    <h:body>
+         
+        <p:growl showDetail="true" id="msg">
+            <p:autoUpdate />
+        </p:growl>
+        
+        <h:form>
+            <p:commandButton id="dynaButton" value="Menu" type="button" icon="ui-icon-triangle-1-s"/>
+            <p:spacer height="30px"/>
+            <p:slideMenu overlay="true" trigger="dynaButton" my="left top" at="left bottom" style="width:180px;">
+                <p:submenu label="Produtos">
+                    <p:menuitem value="Criar" url="createPrdt.xhtml" icon="ui-icon-pencil"/>
+                    <p:menuitem value="Editar" url="editPrdt.xhtml"  icon="ui-icon-refresh"/>
+                    <p:menuitem value="Consultar" url="searchPrdt.xhtml"  icon="ui-icon-search"/>
+                </p:submenu>
+                <p:submenu label="Prateleiras">
+                    <p:menuitem value="Criar" url="createShelf.xhtml" icon="ui-icon-pencil"/>
+                    <p:menuitem value="Editar" url="editShelf.xhtml"  icon="ui-icon-refresh"/>
+                    <p:menuitem value="Consultar" url="searchShelf.xhtml"  icon="ui-icon-search"/>
+                </p:submenu>
+                <p:submenu label="Outros" icon="ui-icon-extlink ">
+                    <p:menuitem value="Home" url="index.xhtml" icon="ui-icon-home" />
+                </p:submenu>
+            </p:slideMenu>
+        </h:form>
+        
+        <h:form id="productForm">
+            
+            <p:dataTable id="product" var="product" value="#{productBean.getPList()}" editable="true" style="margin-bottom:40px">
+                <f:facet name="header">
+                    Produtos
+                </f:facet>
+                
+                <p:ajax event="rowEdit" listener="#{productBean.edit()}" />
+                <p:ajax event="rowEditCancel" listener="#{productBean.cancelEdit()}"  />
+                
+                <p:column headerText="Id" >
+                    <h:outputText value="#{product.id}" />
+                </p:column>
+ 
+                <p:column headerText="PVP" >
+                    <p:cellEditor>
+                        <f:facet name="output"><h:outputText value="#{product.pvp}"/></f:facet>
+                        <f:facet name="input"><p:inputText  value="#{product.pvp}" style="width:100%"/></f:facet>
+                    </p:cellEditor>
+                    <!--<h:outputText value="#{product.pvp}" />-->
+                </p:column>
+ 
+                <p:column headerText="Desconto">
+                    <p:cellEditor>
+                        <f:facet name="output"><h:outputText value="#{product.discount}"/></f:facet>
+                        <f:facet name="input"><p:inputText  value="#{product.discount}" style="width:100%"/></f:facet>
+                    </p:cellEditor>
+                    <!--<h:outputText value="#{product.discount}" />-->
+                </p:column>
+ 
+                <p:column headerText="IVA" >
+                    <p:cellEditor>
+                        <f:facet name="output"><h:outputText value="#{product.iva}"/></f:facet>
+                        <f:facet name="input"><p:inputText  value="#{product.iva}" style="width:100%"/></f:facet>
+                    </p:cellEditor>
+                    <!--<h:outputText value="#{product.iva}" />-->
+                </p:column>
+                
+                <p:column headerText="Prateleira" >
+                    <p:selectOneMenu id="shelf" value="#{productBean.id}" effect="fold" >
+                        <f:selectItem itemLabel="Select One" itemValue="" />
+                        <f:selectItems value="#{shelfBean.getSList()}" var="s" itemLabel="#{s.id}" itemValue="#{s.id}" />
+                    </p:selectOneMenu>
+                </p:column>
+                
+                <p:column style="width:32px">
+                    <p:rowEditor />
+                </p:column>
+                
+                <p:column>
+                    <p:commandButton action="#{productBean.remove()}" value="" icon="ui-icon-trash" validateClient="true" update="productForm:product" />
+                </p:column>
+                
+            </p:dataTable>
+        </h:form>    
+        
+        <h:form id="shelfForm">
+            <p:dataTable id="shelf" var="shelf" value="#{shelfBean.getSList()}" style="margin-bottom:40px">
+                <f:facet name="header">
+                    Prateleiras
+                </f:facet>
+                <p:column headerText="Id">
+                    <h:outputText value="#{shelf.id}" />
+                </p:column>
+ 
+                <p:column headerText="Capacidade" >
+                    <h:outputText value="#{shelf.capacity}" />
+                </p:column>
+ 
+                <p:column headerText="Aluguel" >
+                    <h:outputText value="#{shelf.rent}" />
+                </p:column>
+ 
+                <p:column headerText="Produto" >
+                    <h:outputText value="#{shelf.product}" />
+                </p:column>
+            </p:dataTable>
+        </h:form>    
+        
+    </h:body>
+</html>
