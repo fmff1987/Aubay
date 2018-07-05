@@ -11,15 +11,13 @@ import stock.model.Shelf;
 import java.util.Collection;
 import java.util.List;
 import javax.enterprise.context.RequestScoped;
-import javax.inject.Inject;
 import repositories.EntityRepository;
 import repositories.ProductRepository;
 
 @RequestScoped
 public class ProductControl {
     
-    @Inject 
-    ProductRepository dbProduct;
+    private ProductRepository dbProduct = ProductRepository.getInstance();
 
        
     public void createPrdt(Product p){
@@ -30,7 +28,7 @@ public class ProductControl {
         s.setProduct(p);
     }
     public  Product searchPrdt(long id){
-        return (Product) dbProduct.searchX(id);
+        return dbProduct.searchX(id);
     }
     
     public  void removePrdt(long id){

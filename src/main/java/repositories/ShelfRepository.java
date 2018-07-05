@@ -5,8 +5,15 @@
  */
 package repositories;
 
-import javax.enterprise.context.RequestScoped;
+import stock.model.Shelf;
 
-@RequestScoped
-public class ShelfRepository extends EntityRepository{
+public class ShelfRepository extends EntityRepository<Shelf>{
+    private static final ShelfRepository INSTANCE = new ShelfRepository();
+
+    public static ShelfRepository getInstance() {
+        return INSTANCE;
+    }
+
+    public ShelfRepository() {
+    }
 }

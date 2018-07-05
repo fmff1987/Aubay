@@ -5,9 +5,17 @@
  */
 package repositories;
 
-import javax.enterprise.context.RequestScoped;
+import stock.model.Product;
 
-@RequestScoped
-public class ProductRepository extends EntityRepository{
+public class ProductRepository extends EntityRepository<Product>{
+    private static final ProductRepository INSTANCE = new ProductRepository();
+
+    private ProductRepository() {
+
+    }
+
+    public static ProductRepository getInstance() {
+        return INSTANCE;
+    }
 
 }

@@ -20,8 +20,7 @@ import repositories.ShelfRepository;
 @RequestScoped
 public class ShelfControl {
     
-    @Inject
-    ShelfRepository dbShelf;
+    private EntityRepository<Shelf> dbShelf = ShelfRepository.getInstance();
    
     
     public void createShelf(Shelf s){
